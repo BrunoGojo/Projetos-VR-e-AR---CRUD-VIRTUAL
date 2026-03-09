@@ -19,6 +19,12 @@ cena virtual**.
 
 Cada item criado aparece como um **objeto 3D** na cena.
 
+O usuário pode interagir com o ambiente utilizando:
+
+- **Movimento do mouse** para olhar ao redor da cena
+- **Clique do mouse** para selecionar um cubo
+- **Formulário lateral** para criar, atualizar ou remover itens
+
 Operações disponíveis:
 
 -   **POST** → Criar item
