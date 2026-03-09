@@ -36,7 +36,7 @@ Todas as alterações são refletidas diretamente no ambiente 3D.
 
 ## Estrutura do Projeto
 
-vr-crud-aframe/ ├── index.html ├── style.css ├── app.js └── README.md
+index.html ├── style.css ├── app.js ├── README.md
 
 ## Como Executar
 Abra no Live Server:
