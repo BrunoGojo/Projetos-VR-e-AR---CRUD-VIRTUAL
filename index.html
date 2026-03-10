@@ -1,366 +1,306 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRUD VR com A-Frame</title>
-
-<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD VR com A-Frame</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<a-scene background="color: #0b1120">
-
-<!-- CAMERA -->
-
-<a-entity position="0 1.6 7">
-<a-camera>
-
-<a-cursor
-fuse="true"
-fuse-timeout="900"
-color="#ffffff"
-material="shader: flat; color: #ffffff">
-</a-cursor>
-
-</a-camera>
-</a-entity>
-
-
-<!-- LIGHTS -->
-
-<a-entity light="type: ambient; intensity: 0.95"></a-entity>
-
-<a-entity
-light="type: directional; intensity: 1.2"
-position="2 5 2">
-</a-entity>
-
-
-<!-- FLOOR -->
-
-<a-plane
-position="0 0 -8"
-rotation="-90 0 0"
-width="40"
-height="40"
-color="#334155">
-</a-plane>
-
-
-<!-- SKY -->
-
-<a-sky color="#08122c"></a-sky>
-
-
-<!-- TITLE -->
-
-<a-text
-value="CRUD em Realidade Virtual"
-position="0 4.6 -8"
-align="center"
-color="#3b82f6"
-width="8">
-</a-text>
-
-<a-text
-value="Selecione um cubo e use o painel lateral"
-position="0 4.05 -8"
-align="center"
-color="#cbd5e1"
-width="6.8">
-</a-text>
-
-
-<!-- ITEMS CONTAINER -->
-
-<a-entity id="itemsContainer"></a-entity>
-
-
-<!-- ======================= -->
-<!-- LEFT PANEL -->
-<!-- ======================= -->
-
-<a-entity
-id="crudPanel"
-position="-4.8 2.45 -4.7"
-rotation="0 8 0">
-
-<a-plane
-width="2.9"
-height="3.6"
-color="#0f172a"
-opacity="0.96"
-material="shader: flat">
-</a-plane>
-
-<a-text
-value="Painel CRUD VR"
-position="0 1.55 0.01"
-align="center"
-color="#60a5fa"
-width="2.8">
-</a-text>
-
-<a-text
-value="Nome selecionado"
-position="-1.2 1.1 0.01"
-align="left"
-color="#ffffff"
-width="2">
-</a-text>
-
-<a-text
-id="vrSelectedName"
-value="Cubo Solar"
-position="-1.2 0.85 0.01"
-align="left"
-color="#cbd5e1"
-width="2.3">
-</a-text>
-
-<a-text
-value="Categoria"
-position="-1.2 0.55 0.01"
-align="left"
-color="#ffffff"
-width="2">
-</a-text>
-
-<a-text
-id="vrSelectedCategory"
-value="Museu"
-position="-1.2 0.30 0.01"
-align="left"
-color="#cbd5e1"
-width="2.3">
-</a-text>
-
-<a-text
-value="Tamanho"
-position="-1.2 0.02 0.01"
-align="left"
-color="#ffffff"
-width="2">
-</a-text>
-
-<a-text
-id="vrSelectedSize"
-value="1.0"
-position="-1.2 -0.22 0.01"
-align="left"
-color="#cbd5e1"
-width="2.3">
-</a-text>
-
-<a-text
-value="Cor"
-position="0.45 0.02 0.01"
-align="left"
-color="#ffffff"
-width="1.5">
-</a-text>
-
-<a-plane
-id="vrColorPreview"
-width="0.35"
-height="0.18"
-color="#ef4444"
-position="0.55 -0.22 0.01">
-</a-plane>
-
-<a-text
-value="Nomes"
-position="-1.2 -0.6 0.01"
-align="left"
-color="#60a5fa"
-width="1.8">
-</a-text>
-
-<a-entity id="nameButtonsContainer"></a-entity>
-
-<a-text
-value="Cores"
-position="-1.2 -1.45 0.01"
-align="left"
-color="#60a5fa"
-width="1.8">
-</a-text>
-
-<a-entity id="colorButtonsContainer"></a-entity>
-
-
-<a-text
-value="Tamanho"
-position="0.45 -1.45 0.01"
-align="left"
-color="#60a5fa"
-width="1.5">
-</a-text>
-
-
-<a-plane
-id="sizeDownBtn"
-class="vr-btn clickable"
-width="0.32"
-height="0.2"
-color="#334155"
-position="0.6 -1.75 0.01">
-</a-plane>
-
-<a-text
-value="-"
-position="0.6 -1.8 0.02"
-align="center"
-color="#ffffff"
-width="1.3">
-</a-text>
-
-
-<a-plane
-id="sizeUpBtn"
-class="vr-btn clickable"
-width="0.32"
-height="0.2"
-color="#334155"
-position="1 -1.75 0.01">
-</a-plane>
-
-<a-text
-value="+"
-position="1 -1.8 0.02"
-align="center"
-color="#ffffff"
-width="1.3">
-</a-text>
-
-
-<a-plane
-id="createBtn3D"
-class="vr-btn clickable"
-width="0.8"
-height="0.25"
-color="#16a34a"
-position="-0.85 -2.2 0.01">
-</a-plane>
-
-<a-text
-value="CRIAR"
-position="-0.85 -2.25 0.02"
-align="center"
-color="#ffffff"
-width="1.8">
-</a-text>
-
-
-<a-plane
-id="updateBtn3D"
-class="vr-btn clickable"
-width="0.8"
-height="0.25"
-color="#2563eb"
-position="0 -2.2 0.01">
-</a-plane>
-
-<a-text
-value="ATUALIZAR"
-position="0 -2.25 0.02"
-align="center"
-color="#ffffff"
-width="1.7">
-</a-text>
-
-
-<a-plane
-id="deleteBtn3D"
-class="vr-btn clickable"
-width="0.8"
-height="0.25"
-color="#dc2626"
-position="0.85 -2.2 0.01">
-</a-plane>
-
-<a-text
-value="REMOVER"
-position="0.85 -2.25 0.02"
-align="center"
-color="#ffffff"
-width="1.7">
-</a-text>
-
-</a-entity>
-
-
-<!-- ======================= -->
-<!-- RIGHT PANEL -->
-<!-- ======================= -->
-
-<a-entity
-id="vrListPanel"
-position="4.8 2.45 -4.7"
-rotation="0 -8 0">
-
-<a-plane
-width="2.9"
-height="3.6"
-color="#0f172a"
-opacity="0.96"
-material="shader: flat">
-</a-plane>
-
-<a-text
-value="Lista Virtual (GET)"
-position="0 1.55 0.01"
-align="center"
-color="#60a5fa"
-width="2.8">
-</a-text>
-
-<a-text
-id="vrStatus"
-value="Aplicação VR carregada com sucesso."
-position="0 1.15 0.01"
-align="center"
-color="#e2e8f0"
-width="2.6">
-</a-text>
-
-<a-entity id="vrItemsListContainer"></a-entity>
-
-</a-entity>
-
-
-<!-- ======================= -->
-<!-- SELECTED INFO -->
-<!-- ======================= -->
-
-<a-entity id="selectedInfoPanel" position="0 1.1 -3.2">
-
-<a-plane
-width="3.2"
-height="0.8"
-color="#172033"
-opacity="0.94">
-</a-plane>
-
-<a-text
-id="selectedItemInfo"
-value="Nenhum item selecionado"
-position="0 0.1 0.01"
-align="center"
-color="#ffffff"
-width="2.8">
-</a-text>
-
-</a-entity>
-
-
-<script src="app.js"></script>
-
-</a-scene>
-
+  <a-scene background="color: #0b1120">
+
+    <!-- CÂMERA -->
+    <a-entity position="0 1.6 3.2">
+      <a-camera>
+        <a-cursor
+          fuse="true"
+          fuse-timeout="900"
+          color="#ffffff"
+          material="shader: flat; color: #ffffff">
+        </a-cursor>
+      </a-camera>
+    </a-entity>
+
+    <!-- LUZ -->
+    <a-entity light="type: ambient; intensity: 1"></a-entity>
+    <a-entity light="type: directional; intensity: 1.3" position="2 5 2"></a-entity>
+
+    <!-- CHÃO -->
+    <a-plane
+      position="0 0 -6"
+      rotation="-90 0 0"
+      width="34"
+      height="34"
+      color="#334155">
+    </a-plane>
+
+    <!-- CÉU -->
+    <a-sky color="#08122c"></a-sky>
+
+    <!-- TÍTULO -->
+    <a-text
+      value="CRUD em Realidade Virtual"
+      position="0 3.0 -3.4"
+      align="center"
+      color="#3b82f6"
+      width="3.8">
+    </a-text>
+
+    <a-text
+      value="Selecione um cubo e use o painel lateral"
+      position="0 2.72 -3.4"
+      align="center"
+      color="#cbd5e1"
+      width="3.0">
+    </a-text>
+
+    <!-- CUBOS -->
+    <a-entity id="itemsContainer"></a-entity>
+
+    <!-- PAINEL ESQUERDO -->
+    <a-entity
+      id="crudPanel"
+      position="-3.9 2.6 -3.15"
+      rotation="0 17 0">
+
+      <a-plane
+        width="2.95"
+        height="4.7"
+        color="#0f172a"
+        opacity="0.96">
+      </a-plane>
+
+      <a-text
+        value="Painel CRUD VR"
+        position="0 1.58 0.01"
+        align="center"
+        color="#60a5fa"
+        width="3.6">
+      </a-text>
+
+      <a-text
+        value="Nome"
+        position="-1.18 1.12 0.01"
+        align="left"
+        color="#ffffff"
+        width="2.7">
+      </a-text>
+
+      <a-text
+        id="vrSelectedName"
+        value="Cubo Solar"
+        position="-1.18 0.88 0.01"
+        align="left"
+        color="#cbd5e1"
+        width="1.28"
+        wrap-count="18">
+      </a-text>
+
+      <a-text
+        value="Categoria"
+        position="-1.18 0.58 0.01"
+        align="left"
+        color="#ffffff"
+        width="2.7">
+      </a-text>
+
+      <a-text
+        id="vrSelectedCategory"
+        value="Museu"
+        position="-1.18 0.34 0.01"
+        align="left"
+        color="#cbd5e1"
+        width="1.28"
+        wrap-count="18">
+      </a-text>
+
+      <a-text
+        value="Tamanho"
+        position="-1.18 0.08 0.01"
+        align="left"
+        color="#ffffff"
+        width="2.7">
+      </a-text>
+
+      <a-text
+        id="vrSelectedSize"
+        value="1.0"
+        position="-1.18 -0.14 0.01"
+        align="left"
+        color="#cbd5e1"
+        width="2.7">
+      </a-text>
+
+      <a-text
+        value="Nomes"
+        position="-1.4 -0.48 0.01"
+        align="left"
+        color="#60a5fa"
+        width="2.7">
+      </a-text>
+
+      <a-entity id="nameButtonsContainer"></a-entity>
+
+      <a-text
+        value="Cores"
+        position="-1.4 -1.4 0.01"
+        align="left"
+        color="#60a5fa"
+        width="2.7">
+      </a-text>
+
+      <a-entity id="colorButtonsContainer"></a-entity>
+
+      <a-text
+        value="Tamanho"
+        position="0.32 -1.4 0.01"
+        align="left"
+        color="#60a5fa"
+        width="2.7">
+      </a-text>
+
+      <a-plane
+        id="sizeDownBtn"
+        class="vr-btn clickable"
+        width="0.5"
+        height="0.18"
+        color="#334155"
+        position="0.48 -1.62 0.01">
+      </a-plane>
+
+      <a-text
+        value="-"
+        position="0.48 -1.6 0.02"
+        align="center"
+        color="#ffffff"
+        width="5">
+      </a-text>
+
+      <a-plane
+        id="sizeUpBtn"
+        class="vr-btn clickable"
+        width="0.5"
+        height="0.18"
+        color="#334155"
+        position="1 -1.62 0.01">
+      </a-plane>
+
+      <a-text
+        value="+"
+        position="1 -1.61 0.02"
+        align="center"
+        color="#ffffff"
+        width="5">
+      </a-text>
+
+      <a-plane
+        id="createBtn3D"
+        class="vr-btn clickable"
+        width="0.72"
+        height="0.22"
+        color="#16a34a"
+        position="-0.78 -2.02 0.01">
+      </a-plane>
+
+      <a-text
+        value="CRIAR"
+        position="-0.78 -2.07 0.02"
+        align="center"
+        color="#ffffff"
+        width="2.7">
+      </a-text>
+
+      <a-plane
+        id="updateBtn3D"
+        class="vr-btn clickable"
+        width="0.72"
+        height="0.22"
+        color="#2563eb"
+        position="0 -2.02 0.01">
+      </a-plane>
+
+      <a-text
+        value="ATUALIZAR"
+        position="0 -2.07 0.02"
+        align="center"
+        color="#ffffff"
+        width="2.7">
+      </a-text>
+
+      <a-plane
+        id="deleteBtn3D"
+        class="vr-btn clickable"
+        width="0.72"
+        height="0.22"
+        color="#dc2626"
+        position="0.78 -2.02 0.01">
+      </a-plane>
+
+      <a-text
+        value="REMOVER"
+        position="0.78 -2.07 0.02"
+        align="center"
+        color="#ffffff"
+        width="2.7">
+      </a-text>
+    </a-entity>
+
+    <!-- PAINEL DIREITO -->
+    <a-entity
+      id="vrListPanel"
+      position="4.2 2.32 -3.15"
+      rotation="0 -17 0">
+
+      <a-plane
+        width="2.75"
+        height="3.7"
+        color="#0f172a"
+        opacity="0.96">
+      </a-plane>
+
+      <a-text
+        value="Lista Virtual"
+        position="0 1.46 0.01"
+        align="center"
+        color="#60a5fa"
+        width="3.8">
+      </a-text>
+
+      <a-text
+        id="vrStatus"
+        value="Aplicação carregada."
+        position="0 1.14 0.01"
+        align="center"
+        color="#e2e8f0"
+        width="2.3"
+        wrap-count="20">
+      </a-text>
+
+      <a-entity id="vrItemsListContainer"></a-entity>
+    </a-entity>
+
+    <!-- INFO DO ITEM -->
+    <a-entity id="selectedInfoPanel" position="3.3 5 -2.45">
+      <a-plane
+        width="3.8"
+        height="1.1"
+        color="#172033"
+        opacity="0.94">
+      </a-plane>
+
+      <a-text
+        id="selectedItemInfo"
+        value="Nenhum item selecionado"
+        position="0 0.06 0.01"
+        align="center"
+        color="#ffffff"
+        width="2.3"
+        wrap-count="22">
+      </a-text>
+    </a-entity>
+
+    <script src="app.js"></script>
+  </a-scene>
 </body>
 </html>

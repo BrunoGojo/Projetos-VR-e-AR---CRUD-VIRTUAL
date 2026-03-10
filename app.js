@@ -24,7 +24,6 @@ const vrStatus = document.getElementById("vrStatus");
 const vrSelectedName = document.getElementById("vrSelectedName");
 const vrSelectedCategory = document.getElementById("vrSelectedCategory");
 const vrSelectedSize = document.getElementById("vrSelectedSize");
-const vrColorPreview = document.getElementById("vrColorPreview");
 const selectedItemInfo = document.getElementById("selectedItemInfo");
 
 const nameButtonsContainer = document.getElementById("nameButtonsContainer");
@@ -113,20 +112,19 @@ function updateFormPanel() {
   vrSelectedName.setAttribute("value", formState.name);
   vrSelectedCategory.setAttribute("value", formState.category);
   vrSelectedSize.setAttribute("value", formState.size.toFixed(1));
-  vrColorPreview.setAttribute("color", formState.color);
 
   document.querySelectorAll(".name-btn").forEach(btn => {
     const btnName = btn.getAttribute("data-name");
     const isActive = btnName === formState.name;
     btn.setAttribute("color", isActive ? "#2563eb" : "#334155");
-    btn.setAttribute("scale", isActive ? "1.05 1.05 1.05" : "1 1 1");
+    btn.setAttribute("scale", isActive ? "1.04 1.04 1.04" : "1 1 1");
   });
 
   document.querySelectorAll(".color-btn").forEach(btn => {
     const color = btn.getAttribute("data-color");
     const isActive = color === formState.color;
 
-    btn.setAttribute("scale", isActive ? "1.2 1.2 1.2" : "1 1 1");
+    btn.setAttribute("scale", isActive ? "1.16 1.16 1.16" : "1 1 1");
     btn.setAttribute(
       "material",
       isActive
@@ -171,7 +169,7 @@ function updateSelectionVisual() {
 
     if (id === selectedItemId) {
       box.setAttribute("material", "emissive: #ffffff; emissiveIntensity: 0.28");
-      box.setAttribute("scale", "1.1 1.1 1.1");
+      box.setAttribute("scale", "1.08 1.08 1.08");
     } else {
       box.setAttribute("material", "emissive: #000000; emissiveIntensity: 0");
       box.setAttribute("scale", "1 1 1");
@@ -195,16 +193,27 @@ function selectItem(id) {
 }
 
 function createAnimatedButtonListeners(buttonEl, onClick) {
+  if (!buttonEl) return;
+
   buttonEl.addEventListener("mouseenter", () => {
-    buttonEl.setAttribute("animation__hover", "property: scale; to: 1.06 1.06 1.06; dur: 120");
+    buttonEl.setAttribute(
+      "animation__hover",
+      "property: scale; to: 1.05 1.05 1.05; dur: 120"
+    );
   });
 
   buttonEl.addEventListener("mouseleave", () => {
-    buttonEl.setAttribute("animation__leave", "property: scale; to: 1 1 1; dur: 120");
+    buttonEl.setAttribute(
+      "animation__leave",
+      "property: scale; to: 1 1 1; dur: 120"
+    );
   });
 
   buttonEl.addEventListener("click", () => {
-    buttonEl.setAttribute("animation__press", "property: scale; to: 0.94 0.94 0.94; dur: 80; dir: alternate; loop: 1");
+    buttonEl.setAttribute(
+      "animation__press",
+      "property: scale; to: 0.95 0.95 0.95; dur: 80; dir: alternate; loop: 1"
+    );
     onClick();
   });
 }
@@ -216,8 +225,8 @@ function createNameButtons() {
     const row = Math.floor(index / 2);
     const col = index % 2;
 
-    const x = col === 0 ? -0.72 : 0.72;
-    const y = -0.88 - (row * 0.24);
+    const x = col === 0 ? -0.76 : 0.76;
+    const y = -0.78 - (row * 0.24);
 
     const btn = document.createElement("a-plane");
     btn.setAttribute("width", "1.15");
@@ -230,11 +239,11 @@ function createNameButtons() {
 
     const label = document.createElement("a-text");
     label.setAttribute("value", item.name);
-    label.setAttribute("position", `${x} ${y - 0.04} 0.02`);
+    label.setAttribute("position", `${x} ${y - 0.01} 0.02`);
     label.setAttribute("align", "center");
     label.setAttribute("color", "#ffffff");
-    label.setAttribute("width", "2.05");
-    label.setAttribute("wrap-count", "14");
+    label.setAttribute("width", "1.6");
+    label.setAttribute("wrap-count", "20");
 
     btn.addEventListener("click", () => {
       formState.name = item.name;
@@ -244,11 +253,15 @@ function createNameButtons() {
     });
 
     btn.addEventListener("mouseenter", () => {
-      if (formState.name !== item.name) btn.setAttribute("scale", "1.04 1.04 1.04");
+      if (formState.name !== item.name) {
+        btn.setAttribute("scale", "1.03 1.03 1.03");
+      }
     });
 
     btn.addEventListener("mouseleave", () => {
-      if (formState.name !== item.name) btn.setAttribute("scale", "1 1 1");
+      if (formState.name !== item.name) {
+        btn.setAttribute("scale", "1 1 1");
+      }
     });
 
     nameButtonsContainer.appendChild(btn);
@@ -263,11 +276,11 @@ function createColorButtons() {
     const col = index % 3;
     const row = Math.floor(index / 3);
 
-    const x = -0.96 + (col * 0.34);
-    const y = -1.72 - (row * 0.28);
+    const x = -0.98 + (col * 0.36);
+    const y = -1.5 - (row * 0.28);
 
     const btn = document.createElement("a-sphere");
-    btn.setAttribute("radius", "0.09");
+    btn.setAttribute("radius", "0.085");
     btn.setAttribute("position", `${x} ${y} 0.03`);
     btn.setAttribute("color", color);
     btn.setAttribute("class", "clickable color-btn");
@@ -280,11 +293,15 @@ function createColorButtons() {
     });
 
     btn.addEventListener("mouseenter", () => {
-      if (formState.color !== color) btn.setAttribute("scale", "1.12 1.12 1.12");
+      if (formState.color !== color) {
+        btn.setAttribute("scale", "1.1 1.1 1.1");
+      }
     });
 
     btn.addEventListener("mouseleave", () => {
-      if (formState.color !== color) btn.setAttribute("scale", "1 1 1");
+      if (formState.color !== color) {
+        btn.setAttribute("scale", "1 1 1");
+      }
     });
 
     colorButtonsContainer.appendChild(btn);
@@ -293,11 +310,11 @@ function createColorButtons() {
 
 function createListCard(item, index) {
   const rowHeight = 0.44;
-  const y = 0.62 - (index * rowHeight);
+  const y = 0.72 - (index * rowHeight);
 
   const bg = document.createElement("a-plane");
-  bg.setAttribute("width", "2.45");
-  bg.setAttribute("height", "0.32");
+  bg.setAttribute("width", "2.23");
+  bg.setAttribute("height", "0.38");
   bg.setAttribute("position", `0 ${y} 0.01`);
   bg.setAttribute("color", item.id === selectedItemId ? "#1d4ed8" : "#1e293b");
   bg.setAttribute("class", "clickable");
@@ -305,23 +322,29 @@ function createListCard(item, index) {
 
   const txt = document.createElement("a-text");
   txt.setAttribute("value", `${item.name}\n${item.category} | tam ${item.size}`);
-  txt.setAttribute("position", `-1.08 ${y + 0.06} 0.02`);
+  txt.setAttribute("position", `-0.90 ${y + 0.05} 0.02`);
   txt.setAttribute("align", "left");
   txt.setAttribute("color", "#ffffff");
-  txt.setAttribute("width", "2.1");
+  txt.setAttribute("width", "2");
   txt.setAttribute("wrap-count", "24");
 
   const colorDot = document.createElement("a-sphere");
-  colorDot.setAttribute("radius", "0.06");
-  colorDot.setAttribute("position", `0.98 ${y} 0.03`);
+  colorDot.setAttribute("radius", "0.055");
+  colorDot.setAttribute("position", `0.82 ${y} 0.03`);
   colorDot.setAttribute("color", item.color);
 
   bg.addEventListener("click", () => selectItem(item.id));
+
   bg.addEventListener("mouseenter", () => {
-    if (item.id !== selectedItemId) bg.setAttribute("scale", "1.02 1.02 1.02");
+    if (item.id !== selectedItemId) {
+      bg.setAttribute("scale", "1.02 1.02 1.02");
+    }
   });
+
   bg.addEventListener("mouseleave", () => {
-    if (item.id !== selectedItemId) bg.setAttribute("scale", "1 1 1");
+    if (item.id !== selectedItemId) {
+      bg.setAttribute("scale", "1 1 1");
+    }
   });
 
   vrItemsListContainer.appendChild(bg);
@@ -338,7 +361,7 @@ function renderVRList(items) {
     empty.setAttribute("position", "0 0.2 0.01");
     empty.setAttribute("align", "center");
     empty.setAttribute("color", "#cbd5e1");
-    empty.setAttribute("width", "2.4");
+    empty.setAttribute("width", "1.7");
     vrItemsListContainer.appendChild(empty);
     return;
   }
@@ -348,21 +371,11 @@ function renderVRList(items) {
   });
 }
 
-function createItemEntity(item, index) {
+function createItemEntity(item, position) {
   const entity = document.createElement("a-entity");
-
-  const cols = 3;
-  const spacingX = 2.45;
-  const spacingZ = 2.75;
-
-  const col = index % cols;
-  const row = Math.floor(index / cols);
-
-  const x = (col - 1) * spacingX;
-  const z = -5.9 - row * spacingZ;
   const y = item.size / 2;
 
-  entity.setAttribute("position", `${x} 0 ${z}`);
+  entity.setAttribute("position", `${position.x} 0 ${position.z}`);
   entity.setAttribute("data-id", item.id);
   entity.classList.add("clickable");
 
@@ -380,18 +393,18 @@ function createItemEntity(item, index) {
 
   const label = document.createElement("a-text");
   label.setAttribute("value", `${item.name}\n${item.category}`);
-  label.setAttribute("position", `0 ${item.size + 0.65} 0`);
+  label.setAttribute("position", `0 ${item.size + 0.42} 0`);
   label.setAttribute("align", "center");
   label.setAttribute("color", "#ffffff");
-  label.setAttribute("width", "3.2");
-  label.setAttribute("wrap-count", "14");
+  label.setAttribute("width", "1.0");
+  label.setAttribute("wrap-count", "18");
 
   const idText = document.createElement("a-text");
   idText.setAttribute("value", item.id.replace("item-", "#"));
-  idText.setAttribute("position", `0 0.18 ${item.size * 0.6 + 0.35}`);
+  idText.setAttribute("position", `0 0.14 ${item.size * 0.6 + 0.26}`);
   idText.setAttribute("align", "center");
   idText.setAttribute("color", "#cbd5e1");
-  idText.setAttribute("width", "3.2");
+  idText.setAttribute("width", "0.95");
 
   entity.appendChild(box);
   entity.appendChild(label);
@@ -400,22 +413,72 @@ function createItemEntity(item, index) {
   entity.addEventListener("click", () => selectItem(item.id));
 
   entity.addEventListener("mouseenter", () => {
-    if (item.id !== selectedItemId) box.setAttribute("scale", "1.06 1.06 1.06");
+    if (item.id !== selectedItemId) {
+      box.setAttribute("scale", "1.05 1.05 1.05");
+    }
   });
 
   entity.addEventListener("mouseleave", () => {
-    if (item.id !== selectedItemId) box.setAttribute("scale", "1 1 1");
+    if (item.id !== selectedItemId) {
+      box.setAttribute("scale", "1 1 1");
+    }
   });
 
   return entity;
 }
 
+function calculateItemPositions(items) {
+  const positions = [];
+  const maxCols = 2;
+  const gapX = 0.55;
+  const gapZ = 0.95;
+  const startZ = -3.35;
+
+  let index = 0;
+  let currentZ = startZ;
+
+  while (index < items.length) {
+    const rowItems = items.slice(index, index + maxCols);
+    const rowWidths = rowItems.map(item => item.size);
+    const rowDepths = rowItems.map(item => item.size);
+
+    const totalRowWidth =
+      rowWidths.reduce((sum, width) => sum + width, 0) +
+      gapX * (rowItems.length - 1);
+
+    let currentX = -totalRowWidth / 2;
+
+    rowItems.forEach((item) => {
+      const centerX = currentX + item.size / 2;
+
+      positions.push({
+        id: item.id,
+        x: Number(centerX.toFixed(2)),
+        z: Number(currentZ.toFixed(2))
+      });
+
+      currentX += item.size + gapX;
+    });
+
+    const deepestItem = Math.max(...rowDepths);
+    currentZ -= deepestItem + gapZ;
+    index += maxCols;
+  }
+
+  return positions;
+}
+
 function renderScene() {
   const items = apiGetItems();
+  const positions = calculateItemPositions(items);
+
   itemsContainer.innerHTML = "";
 
-  items.forEach((item, index) => {
-    itemsContainer.appendChild(createItemEntity(item, index));
+  items.forEach((item) => {
+    const position = positions.find(pos => pos.id === item.id);
+    if (position) {
+      itemsContainer.appendChild(createItemEntity(item, position));
+    }
   });
 
   renderVRList(items);
@@ -473,22 +536,24 @@ function handleDelete() {
   setStatus(`Item removido: ${deletedId}`);
 }
 
+function increaseSize() {
+  formState.size = clamp(Number((formState.size + 0.1).toFixed(1)), 0.6, 2.5);
+  updateFormPanel();
+  setStatus(`Tamanho aumentado para ${formState.size.toFixed(1)}.`);
+}
+
+function decreaseSize() {
+  formState.size = clamp(Number((formState.size - 0.1).toFixed(1)), 0.6, 2.5);
+  updateFormPanel();
+  setStatus(`Tamanho reduzido para ${formState.size.toFixed(1)}.`);
+}
+
 function bindEvents() {
   createAnimatedButtonListeners(createBtn3D, handleCreate);
   createAnimatedButtonListeners(updateBtn3D, handleUpdate);
   createAnimatedButtonListeners(deleteBtn3D, handleDelete);
-
-  createAnimatedButtonListeners(sizeDownBtn, () => {
-    formState.size = clamp(Number((formState.size - 0.1).toFixed(1)), 0.6, 2.5);
-    updateFormPanel();
-    setStatus("Tamanho reduzido.");
-  });
-
-  createAnimatedButtonListeners(sizeUpBtn, () => {
-    formState.size = clamp(Number((formState.size + 0.1).toFixed(1)), 0.6, 2.5);
-    updateFormPanel();
-    setStatus("Tamanho aumentado.");
-  });
+  createAnimatedButtonListeners(sizeDownBtn, decreaseSize);
+  createAnimatedButtonListeners(sizeUpBtn, increaseSize);
 }
 
 function initApp() {
@@ -508,7 +573,7 @@ function initApp() {
   updateFormPanel();
   clearSelection();
   renderScene();
-  setStatus("Aplicação VR carregada com sucesso.");
+  setStatus("VR carregada com sucesso.");
 }
 
 initApp();
