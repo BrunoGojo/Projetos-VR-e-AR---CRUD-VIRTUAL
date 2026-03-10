@@ -226,11 +226,11 @@ function createNameButtons() {
     const col = index % 2;
 
     const x = col === 0 ? -0.76 : 0.76;
-    const y = -0.78 - (row * 0.24);
+    const y = -0.66 - (row * 0.24);
 
     const btn = document.createElement("a-plane");
-    btn.setAttribute("width", "1.15");
-    btn.setAttribute("height", "0.16");
+    btn.setAttribute("width", "1.24");
+    btn.setAttribute("height", "0.2");
     btn.setAttribute("position", `${x} ${y} 0.01`);
     btn.setAttribute("color", "#334155");
     btn.setAttribute("class", "clickable name-btn");
