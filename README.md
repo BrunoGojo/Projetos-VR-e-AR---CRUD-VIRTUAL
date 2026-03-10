@@ -22,7 +22,7 @@ Cada item criado aparece como um **objeto 3D** na cena.
 O usuário pode interagir com o ambiente utilizando:
 
 - **Movimento do mouse** para olhar ao redor da cena
-- **Clique do mouse** para selecionar um cubo
+- **Para a seleção e confirmação**, basta deixar o crosshair emcima na opção desejada por 0,5s
 - **Formulário lateral** para criar, atualizar ou remover itens
 
 Operações disponíveis:
