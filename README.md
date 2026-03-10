@@ -52,4 +52,4 @@ Depois abra a porta **5500** no navegador.
 
 ## Autor
 
-Bruno do Nascimento Almeida Xavier
+Grupo: Bruno Almeida e Henrique Chen
